@@ -1,2 +1,2 @@
 # aws-users
-create aws users for my repos
+create aws user creadentials for my for my repos.

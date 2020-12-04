@@ -1,0 +1,39 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Creates users for github and bitbucket"
+
+Resources:
+  bitbucket:
+    Type: AWS::IAM::User
+    Properties:
+      Groups: 
+        - system-admins
+      UserName: bitbucket
+  bitbucketaccesskey:
+    Type: AWS::IAM::AccessKey
+    Properties:
+      UserName:
+        !Ref bitbucket
+  github:
+    Type: AWS::IAM::User
+    Properties:
+      Groups: 
+        - system-admins
+      UserName: github
+  githubaccesskey:
+    Type: AWS::IAM::AccessKey
+    Properties:
+      UserName:
+        !Ref github
+Outputs:
+  BitbucketAwsAccessId:
+    Description: aws-access-id for bitbucket.
+    Value: !Ref bitbucketaccesskey
+  BitbucketAwsSecretKey:
+    Description: aws-secret-key for bitbucket.
+    Value: !GetAtt bitbucketaccesskey.SecretAccessKey
+  GithubAwsAccessId:
+    Description: aws-access-id for github.
+    Value: !Ref githubaccesskey
+  GithubAwsSecretKey:
+    Description: aws-secret-key for github.
+    Value: !GetAtt githubaccesskey.SecretAccessKey
